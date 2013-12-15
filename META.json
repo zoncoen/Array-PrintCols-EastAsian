@@ -43,7 +43,7 @@
       },
       "runtime" : {
          "requires" : {
-            "perl" : "5.008005"
+            "perl" : "5.010"
          }
       },
       "test" : {
@@ -53,5 +53,15 @@
       }
    },
    "release_status" : "unstable",
+   "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/zoncoen/Array-PrintCols-EastAsian/issues"
+      },
+      "homepage" : "https://github.com/zoncoen/Array-PrintCols-EastAsian",
+      "repository" : {
+         "url" : "https://github.com/zoncoen/Array-PrintCols-EastAsian.git",
+         "web" : "https://github.com/zoncoen/Array-PrintCols-EastAsian"
+      }
+   },
    "version" : "0.01"
 }
