@@ -13,7 +13,7 @@ $Text::VisualWidth::PP::EastAsian = 1;
 
 our $VERSION = '0.01';
 
-sub max {
+sub _max {
     my @array = @_;
     my $max   = shift @array;
     foreach (@array) {
@@ -22,7 +22,7 @@ sub max {
     return $max;
 }
 
-sub min {
+sub _min {
     my @array = @_;
     my $min   = shift @array;
     foreach (@array) {
@@ -31,7 +31,7 @@ sub min {
     return $min;
 }
 
-sub validate {
+sub _validate {
     my ( $array, $options ) = @_;
     state $rules = Data::Validator->new(
         array  => { isa => 'ArrayRef' },
@@ -49,10 +49,10 @@ sub validate {
     return $args;
 }
 
-sub align {
+sub _align {
     my $args    = shift;
     my @length  = map { Text::VisualWidth::PP::width $_ } @{ $args->{array} };
-    my $max_len = max(@length);
+    my $max_len = _max(@length);
     my ( @formatted_array, $space );
     for ( 0 .. $#{ $args->{array} } ) {
         $space = $max_len - $length[$_];
@@ -68,22 +68,22 @@ sub align {
 
 sub format_cols {
     my ( $array, $options ) = @_;
-    my $args = validate( $array, $options );
-    return align($args);
+    my $args = _validate( $array, $options );
+    return _align($args);
 }
 
 sub print_cols {
     my ( $array, $options ) = @_;
-    my $args            = validate( $array, $options );
-    my $formatted_array = align($args);
+    my $args            = _validate( $array, $options );
+    my $formatted_array = _align($args);
     my $gap             = $args->{gap};
     my $encode          = $args->{encode};
     my $column;
     if ( exists $args->{column} ) { $column = $args->{column}; }
     if ( exists $args->{width} ) {
         my $element_width = Text::VisualWidth::PP::width $formatted_array->[0];
-        $column = max( 1, int 1 + ( $args->{width} - $element_width ) / ( $element_width + $gap ) );
-        if ( exists $args->{column} ) { $column = min( $args->{column}, $column ); }
+        $column = _max( 1, int 1 + ( $args->{width} - $element_width ) / ( $element_width + $gap ) );
+        if ( exists $args->{column} ) { $column = _min( $args->{column}, $column ); }
     }
     if ( !$column ) { $column = $#{$formatted_array}; }
 
