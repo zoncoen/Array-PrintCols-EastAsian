@@ -142,7 +142,7 @@ Valid options for this method are as follows:
 
 C<< align => $align : Str (left|center|right) >>
 
-    Set text alignment. Align option should be left, center, or right.
+    Set text alignment. Align option should be left, center, or right. Default value is left.
 
 =head2 C<< Array::PrintCols::EastAsian->print_cols($array_ref : ArrayRef, $options : HashRef) >>
 
