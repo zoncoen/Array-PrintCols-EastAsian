@@ -49,11 +49,11 @@ sub align {
     my ( @formatted_array, $space );
     for ( 0 .. $#{ $args->{array} } ) {
         $space = $max_len - $length[$_];
-        push @formatted_array, $args->{array}->[$_]. " " x $space if $args->{align} =~ /^left$/i;
-        push @formatted_array, " " x $space. $args->{array}->[$_] if $args->{align} =~ /^right$/i;
+        push @formatted_array, $args->{array}->[$_] . " " x $space if $args->{align} =~ /^left$/i;
+        push @formatted_array, " " x $space . $args->{array}->[$_] if $args->{align} =~ /^right$/i;
         if ( $args->{align} =~ /^center$/i ) {
             my $half_space = int $space / 2;
-            push @formatted_array, " " x $half_space. $args->{array}->[$_]. " " x ($space - $half_space);
+            push @formatted_array, " " x $half_space . $args->{array}->[$_] . " " x ( $space - $half_space );
         }
     }
     return \@formatted_array;
@@ -92,10 +92,10 @@ sub print_cols {
 
 sub pretty_print_cols {
     my ( $array, $options ) = @_;
-    my $gap = $options->{gap} // 1;
+    my $gap           = $options->{gap} // 1;
     my @terminal_size = GetTerminalSize;
-    my $align = $options->{align} // 'left';
-    my $encode = $options->{encode} // 'utf-8';
+    my $align         = $options->{align} // 'left';
+    my $encode        = $options->{encode} // 'utf-8';
     print_cols( $array, { 'gap' => $gap, 'width' => $terminal_size[0], 'align' => $align, 'encode' => $encode } );
 }
 
@@ -106,15 +106,95 @@ __END__
 
 =head1 NAME
 
-Array::PrintCols::EastAsian - It's new $module
+Array::PrintCols::EastAsian - Print or format space-fill array elements with aligning vertically with multibyte characters.
 
 =head1 SYNOPSIS
 
     use Array::PrintCols::EastAsian;
 
+    my @motorcycles = (
+        'GSX1300Rハヤブサ', 'ZZR1400',
+        'CBR1100XXスーパーブラックバード', 'K1300S',
+        'GSX-R1000', 'ニンジャZX-10R',
+        'CBR1000RR', 'S1000RR'
+    );
+
+    # get an array which has space-fill elements
+    @formatted_array = @{format_cols \@motorcycles}
+
+    # print array elements with aligning vertivally
+    print_cols \@motorcycles;
+
+    # print array elements with aligning vertivally and fitting the window width like Linux "ls" command
+    pretty_print_cols \@motorcycles;
+
 =head1 DESCRIPTION
 
-Array::PrintCols::EastAsian is ...
+Array::PrintCols::EastAsian is yet another module which can print and format space-fill array elements with aligning vertically.
+
+=head1 INTERFACE
+
+=head2 C<< Array::PrintCols::EastAsian->format_cols($array_ref : ArrayRef, $options : HashRef) >>
+
+This is a method getting an array which has space-fill elements.
+
+Valid options for this method are as follows:
+
+C<< align => $align : Str (left|center|right) >>
+
+    Set text alignment. Align option should be left, center, or right.
+
+=head2 C<< Array::PrintCols::EastAsian->print_cols($array_ref : ArrayRef, $options : HashRef) >>
+
+This is a method printing array elements with aligning vertivally.
+
+Valid options for this method are as follows:
+
+C<< gap => $gap : Int >>
+
+    Set the number op space between array elements. Gap option should be a integer greater than or equal 1. Default value is 0.
+
+C<< column => $column : Int >>
+
+    Set the number of column. Column option should be a integer greater than 0.
+
+C<< width => $width : Num >>
+
+    Set width for printing. Width option should be a number greater than 0.
+
+C<< align => $align : Str >>
+
+    Set text alignment. Align option should be left, center, or right. Default value is left.
+
+C<< encode => $encode : Str >>
+
+    Set text encoding for printing. Encode option should be a valid encoding. Default value is utf-8.
+
+=head2 C<< Array::PrintCols::EastAsian->pretty_print_cols($array_ref : ArrayRef, $options : HashRef) >>
+
+This is a method printing array elements with aligning vertivally and fitting the window width like Linux "ls" command.
+
+Valid options for this method are as follows:
+
+C<< gap => $gap : Int >>
+
+    Set the number op space between array elements. Gap option should be a integer greater than or equal 1. Default value is 1.
+
+C<< align => $align : Str >>
+
+    Set text alignment. Align option should be left, center, or right. Default value is left.
+
+C<< encode => $encode : Str >>
+
+    Set text encoding for printing. Encode option should be a valid encoding. Default value is utf-8.
+
+=head1 SEE ALSO
+
+L<Array::PrintCols>
+
+L<Term::ReadKey>
+
+L<Text::VisualWidth::PP>
 
 =head1 LICENSE
 
