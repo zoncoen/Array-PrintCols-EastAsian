@@ -44,7 +44,7 @@ Valid options for this method are as follows:
 
 ## `Array::PrintCols::EastAsian->print_cols($array_ref : ArrayRef, $options : HashRef)`
 
-This is a method printing array elements with aligning vertivally.
+This is a method printing array elements with aligning vertically.
 
 Valid options for this method are as follows:
 
@@ -70,7 +70,7 @@ Valid options for this method are as follows:
 
 ## `Array::PrintCols::EastAsian->pretty_print_cols($array_ref : ArrayRef, $options : HashRef)`
 
-This is a method printing array elements with aligning vertivally and fitting the window width like Linux "ls" command.
+This is a method printing array elements with aligning vertically and fitting the window width like Linux "ls" command.
 
 Valid options for this method are as follows:
 

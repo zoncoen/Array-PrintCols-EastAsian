@@ -163,7 +163,7 @@ C<< align => $align : Str (left|center|right) >>
 
 =head2 C<< Array::PrintCols::EastAsian->print_cols($array_ref : ArrayRef, $options : HashRef) >>
 
-This is a method printing array elements with aligning vertivally.
+This is a method printing array elements with aligning vertically.
 
 Valid options for this method are as follows:
 
@@ -189,7 +189,7 @@ C<< encode => $encode : Str >>
 
 =head2 C<< Array::PrintCols::EastAsian->pretty_print_cols($array_ref : ArrayRef, $options : HashRef) >>
 
-This is a method printing array elements with aligning vertivally and fitting the window width like Linux "ls" command.
+This is a method printing array elements with aligning vertically and fitting the window width like Linux "ls" command.
 
 Valid options for this method are as follows:
 
