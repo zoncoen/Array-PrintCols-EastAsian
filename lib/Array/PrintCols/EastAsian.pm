@@ -130,20 +130,18 @@ This document describes Array::PrintCols::EastAsian version 0.0.1.
     use Array::PrintCols::EastAsian;
 
     my @motorcycles = (
-        'GSX1300Rハヤブサ', 'ZZR1400',
-        'CBR1100XXスーパーブラックバード', 'K1300S',
-        'GSX-R1000', 'ニンジャZX-10R',
-        'CBR1000RR', 'S1000RR'
+        'GSX1300Rハヤブサ', 'ZZR1400', 'CBR1100XXスーパーブラックバード',
+        'K1300S', 'GSX-R1000', 'ニンジャZX-10R', 'CBR1000RR', 'S1000RR'
     );
 
     # get an array which has space-fill elements
-    @formatted_array = @{format_cols \@motorcycles}
+    my @formatted_array = @{ format_cols( \@motorcycles ) };
 
     # print array elements with aligning vertivally
-    print_cols \@motorcycles;
+    print_cols( \@motorcycles );
 
     # print array elements with aligning vertivally and fitting the window width like Linux "ls" command
-    pretty_print_cols \@motorcycles;
+    pretty_print_cols( \@motorcycles );
 
 =head1 DESCRIPTION
 
