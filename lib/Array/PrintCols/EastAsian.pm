@@ -10,8 +10,12 @@ use Data::Validator;
 use Term::ReadKey;
 use Text::VisualWidth::PP;
 $Text::VisualWidth::PP::EastAsian = 1;
+use parent qw/ Exporter /;
 
 our $VERSION = '0.01';
+
+our @EXPORT    = qw/ format_cols print_cols pretty_print_cols /;
+our @EXPORT_OK = qw/ _max _min /;
 
 sub _max {
     my @array = @_;

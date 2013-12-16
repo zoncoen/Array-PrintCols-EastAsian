@@ -6,5 +6,6 @@ top = 10
 [-Documentation::RequirePodSections]
 [-Documentation::RequirePodLinksIncludeText]
 [-CodeLayout::RequireTidyCode]
+[-Modules::ProhibitAutomaticExportation]
 [InputOutput::RequireCheckedSyscalls]
 exclude_functions = print
