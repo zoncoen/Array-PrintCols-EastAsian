@@ -1,5 +1,5 @@
 {
-   "abstract" : "It's new $module",
+   "abstract" : "Print or format space-fill array elements with aligning vertically with multibyte characters.",
    "author" : [
       "zoncoen <zoncoen@gmail.com>"
    ],

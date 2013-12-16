@@ -11,21 +11,28 @@ use Term::ReadKey;
 use Text::VisualWidth::PP;
 $Text::VisualWidth::PP::EastAsian = 1;
 
-our $VERSION = "0.01";
+our $VERSION = '0.01';
 
 sub max {
-    my $max = shift;
-    foreach (@_) { $max = $_ if $max < $_; }
-    $max;
+    my @array = @_;
+    my $max   = shift @array;
+    foreach (@array) {
+        if ( $max < $_ ) { $max = $_; }
+    }
+    return $max;
 }
 
 sub min {
-    my $min = shift;
-    foreach (@_) { $min = $_ if $min > $_; }
-    $min;
+    my @array = @_;
+    my $min   = shift @array;
+    foreach (@array) {
+        if ( $min > $_ ) { $min = $_; }
+    }
+    return $min;
 }
 
 sub validate {
+    my ( $array, $options ) = @_;
     state $rules = Data::Validator->new(
         array  => { isa => 'ArrayRef' },
         gap    => { isa => 'Int', default => 0 },
@@ -34,11 +41,11 @@ sub validate {
         align  => { isa => 'Str', default => 'left' },
         encode => { isa => 'Str', default => 'utf-8' },
     )->with('Sequenced');
-    my $args = $rules->validate(@_);
-    croak "Gap option should be a integer greater than or equal 1." if $args->{gap} < 0;
-    croak "Column option should be a integer greater than 0."       if exists $args->{column} && $args->{column} <= 0;
-    croak "Width option should be a number greater than 0."         if exists $args->{width} && $args->{width} <= 0;
-    croak "Align option should be left, center, or right." unless $args->{align} =~ /^(left|center|right)$/i;
+    my $args = $rules->validate( $array, $options );
+    if ( $args->{gap} < 0 ) { croak 'Gap option should be a integer greater than or equal 1.'; }
+    if ( exists $args->{column} && $args->{column} <= 0 ) { croak 'Column option should be a integer greater than 0.'; }
+    if ( exists $args->{width}  && $args->{width} <= 0 )  { croak 'Width option should be a number greater than 0.'; }
+    if ( !$args->{align} =~ m/^(left|center|right)$/msxi ) { croak 'Align option should be left, center, or right.'; }
     return $args;
 }
 
@@ -49,45 +56,50 @@ sub align {
     my ( @formatted_array, $space );
     for ( 0 .. $#{ $args->{array} } ) {
         $space = $max_len - $length[$_];
-        push @formatted_array, $args->{array}->[$_] . " " x $space if $args->{align} =~ /^left$/i;
-        push @formatted_array, " " x $space . $args->{array}->[$_] if $args->{align} =~ /^right$/i;
-        if ( $args->{align} =~ /^center$/i ) {
+        if ( $args->{align} =~ m/^left$/msxi )  { push @formatted_array, $args->{array}->[$_] . q{ } x $space; }
+        if ( $args->{align} =~ m/^right$/msxi ) { push @formatted_array, q{ } x $space . $args->{array}->[$_]; }
+        if ( $args->{align} =~ m/^center$/msxi ) {
             my $half_space = int $space / 2;
-            push @formatted_array, " " x $half_space . $args->{array}->[$_] . " " x ( $space - $half_space );
+            push @formatted_array, q{ } x $half_space . $args->{array}->[$_] . q{ } x ( $space - $half_space );
         }
     }
     return \@formatted_array;
 }
 
 sub format_cols {
-    my $args = validate(@_);
+    my ( $array, $options ) = @_;
+    my $args = validate( $array, $options );
     return align($args);
 }
 
 sub print_cols {
-    my $args            = validate(@_);
+    my ( $array, $options ) = @_;
+    my $args            = validate( $array, $options );
     my $formatted_array = align($args);
     my $gap             = $args->{gap};
     my $encode          = $args->{encode};
-    my $column          = $args->{column} if exists $args->{column};
+    my $column;
+    if ( exists $args->{column} ) { $column = $args->{column}; }
     if ( exists $args->{width} ) {
         my $element_width = Text::VisualWidth::PP::width $formatted_array->[0];
         $column = max( 1, int 1 + ( $args->{width} - $element_width ) / ( $element_width + $gap ) );
-        $column = min( $args->{column}, $column ) if exists $args->{column};
+        if ( exists $args->{column} ) { $column = min( $args->{column}, $column ); }
     }
-    $column = $#{$formatted_array} unless $column;
+    if ( !$column ) { $column = $#{$formatted_array}; }
 
-    my $str = "";
+    my $str = q{};
     for ( 0 .. $#{$formatted_array} ) {
-        unless ( $_ % $column ) {
-            $str = $str . "\n" if $str;
+        if ( $_ % $column ) {
+            $str = $str . q{ } x $gap;
         }
         else {
-            $str = $str . " " x $gap;
+            if ($str) { $str = $str . "\n"; }
         }
         $str = $str . $formatted_array->[$_];
     }
-    print Encode::encode $encode, "$str\n";
+    $str = $str . "\n";
+    print "encode $encode, $str";
+    return;
 }
 
 sub pretty_print_cols {
@@ -97,6 +109,7 @@ sub pretty_print_cols {
     my $align         = $options->{align} // 'left';
     my $encode        = $options->{encode} // 'utf-8';
     print_cols( $array, { 'gap' => $gap, 'width' => $terminal_size[0], 'align' => $align, 'encode' => $encode } );
+    return;
 }
 
 1;
@@ -107,6 +120,10 @@ __END__
 =head1 NAME
 
 Array::PrintCols::EastAsian - Print or format space-fill array elements with aligning vertically with multibyte characters.
+
+=head1 VERSION
+
+This document describes Array::PrintCols::EastAsian version 0.0.1.
 
 =head1 SYNOPSIS
 
@@ -188,6 +205,16 @@ C<< encode => $encode : Str >>
 
     Set text encoding for printing. Encode option should be a valid encoding. Default value is utf-8.
 
+=head1 DEPENDENCIES
+
+Perl 5.10 or later.
+
+=head1 BUGS AND LIMITATIONS
+
+No bugs have been reported.
+
+Please report any bugs or feature requests through the GitHub issues  at L<https://github.com/zoncoen/Array-PrintCols-EastAsian/issues>.
+
 =head1 SEE ALSO
 
 L<Array::PrintCols>
@@ -196,7 +223,7 @@ L<Term::ReadKey>
 
 L<Text::VisualWidth::PP>
 
-=head1 LICENSE
+=head1 LICENSE AND COPYRIGHT
 
 Copyright (C) zoncoen.
 
