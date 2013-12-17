@@ -59,7 +59,8 @@
       },
       "homepage" : "https://github.com/zoncoen/Array-PrintCols-EastAsian",
       "repository" : {
-         "url" : "https://github.com/zoncoen/Array-PrintCols-EastAsian.git",
+         "type" : "git",
+         "url" : "git://github.com/zoncoen/Array-PrintCols-EastAsian.git",
          "web" : "https://github.com/zoncoen/Array-PrintCols-EastAsian"
       }
    },
