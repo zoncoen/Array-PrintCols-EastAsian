@@ -130,7 +130,7 @@ Array::PrintCols::EastAsian - Print or format space-fill array elements with ali
 
 =head1 VERSION
 
-This document describes Array::PrintCols::EastAsian version 0.0.1.
+This document describes Array::PrintCols::EastAsian version 0.01.
 
 =head1 SYNOPSIS
 
