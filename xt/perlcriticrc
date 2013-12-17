@@ -1,0 +1,11 @@
+severity = 1
+theme = core
+top = 10
+
+[-Variables::ProhibitPackageVars]
+[-Documentation::RequirePodSections]
+[-Documentation::RequirePodLinksIncludeText]
+[-CodeLayout::RequireTidyCode]
+[-Modules::ProhibitAutomaticExportation]
+[InputOutput::RequireCheckedSyscalls]
+exclude_functions = print
