@@ -48,7 +48,7 @@ Valid options for this method are as follows:
 
 `gap => $gap : Int`
 
-Set the number op space between array elements. Gap option should be a integer greater than or equal 1. Default value is 0.
+Set the number or space between array elements. Gap option should be a integer greater than or equal 1. Default value is 0.
 
 `column => $column : Int`
 
@@ -74,7 +74,7 @@ Valid options for this method are as follows:
 
 `gap => $gap : Int`
 
-Set the number op space between array elements. Gap option should be a integer greater than or equal 1. Default value is 1.
+Set the number or space between array elements. Gap option should be a integer greater than or equal 1. Default value is 1.
 
 `align => $align : Str`
 
