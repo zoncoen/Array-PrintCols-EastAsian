@@ -43,11 +43,17 @@
       },
       "runtime" : {
          "requires" : {
+            "Carp" : "0",
+            "Data::Validator" : "0",
+            "Encode" : "0",
+            "Term::ReadKey" : "0",
+            "Text::VisualWidth::PP" : "0",
             "perl" : "5.010"
          }
       },
       "test" : {
          "requires" : {
+            "Test::Exception" : "0",
             "Test::More" : "0.98"
          }
       }
