@@ -30,7 +30,7 @@ Array::PrintCols::EastAsian is yet another module which can print and format spa
 
 # INTERFACE
 
-## `Array::PrintCols::EastAsian->format_cols($array_ref : ArrayRef, $options : HashRef)`
+## `format_cols($array_ref : ArrayRef, $options : HashRef)`
 
 This is a method getting an array which has space-fill elements.
 
@@ -40,7 +40,7 @@ Valid options for this method are as follows:
 
     Set text alignment. Align option should be left, center, or right. Default value is left.
 
-## `Array::PrintCols::EastAsian->print_cols($array_ref : ArrayRef, $options : HashRef)`
+## `print_cols($array_ref : ArrayRef, $options : HashRef)`
 
 This is a method printing array elements with aligning vertically.
 
@@ -66,7 +66,7 @@ Valid options for this method are as follows:
 
     Set text encoding for printing. Encode option should be a valid encoding. Default value is utf-8.
 
-## `Array::PrintCols::EastAsian->pretty_print_cols($array_ref : ArrayRef, $options : HashRef)`
+## `pretty_print_cols($array_ref : ArrayRef, $options : HashRef)`
 
 This is a method printing array elements with aligning vertically and fitting the window width like Linux "ls" command.
 
