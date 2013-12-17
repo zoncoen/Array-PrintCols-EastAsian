@@ -38,7 +38,7 @@ Valid options for this method are as follows:
 
 `align => $align : Str (left|center|right)`
 
-    Set text alignment. Align option should be left, center, or right. Default value is left.
+Set text alignment. Align option should be left, center, or right. Default value is left.
 
 ## `print_cols($array_ref : ArrayRef, $options : HashRef)`
 
@@ -48,23 +48,23 @@ Valid options for this method are as follows:
 
 `gap => $gap : Int`
 
-    Set the number op space between array elements. Gap option should be a integer greater than or equal 1. Default value is 0.
+Set the number op space between array elements. Gap option should be a integer greater than or equal 1. Default value is 0.
 
 `column => $column : Int`
 
-    Set the number of column. Column option should be a integer greater than 0.
+Set the number of column. Column option should be a integer greater than 0.
 
 `width => $width : Int`
 
-    Set width for printing. Width option should be a integer greater than 0.
+Set width for printing. Width option should be a integer greater than 0.
 
 `align => $align : Str`
 
-    Set text alignment. Align option should be left, center, or right. Default value is left.
+Set text alignment. Align option should be left, center, or right. Default value is left.
 
 `encode => $encode : Str`
 
-    Set text encoding for printing. Encode option should be a valid encoding. Default value is utf-8.
+Set text encoding for printing. Encode option should be a valid encoding. Default value is utf-8.
 
 ## `pretty_print_cols($array_ref : ArrayRef, $options : HashRef)`
 
@@ -74,15 +74,15 @@ Valid options for this method are as follows:
 
 `gap => $gap : Int`
 
-    Set the number op space between array elements. Gap option should be a integer greater than or equal 1. Default value is 1.
+Set the number op space between array elements. Gap option should be a integer greater than or equal 1. Default value is 1.
 
 `align => $align : Str`
 
-    Set text alignment. Align option should be left, center, or right. Default value is left.
+Set text alignment. Align option should be left, center, or right. Default value is left.
 
 `encode => $encode : Str`
 
-    Set text encoding for printing. Encode option should be a valid encoding. Default value is utf-8.
+Set text encoding for printing. Encode option should be a valid encoding. Default value is utf-8.
 
 # DEPENDENCIES
 
