@@ -15,7 +15,7 @@ use parent qw/ Exporter /;
 our $VERSION = '0.01';
 
 our @EXPORT    = qw/ format_cols print_cols pretty_print_cols /;
-our @EXPORT_OK = qw/ _max _min /;
+our @EXPORT_OK = qw/ _max _min _validate _align /;
 
 sub _max {
     my @array = @_;
@@ -37,19 +37,22 @@ sub _min {
 
 sub _validate {
     my ( $array, $options ) = @_;
+    if ( !defined $options ) { $options = {}; }
     state $rules = Data::Validator->new(
         array  => { isa => 'ArrayRef' },
         gap    => { isa => 'Int', default => 0 },
         column => { isa => 'Int', optional => 1 },
-        width  => { isa => 'Num', optional => 1 },
+        width  => { isa => 'Int', optional => 1 },
         align  => { isa => 'Str', default => 'left' },
         encode => { isa => 'Str', default => 'utf-8' },
     )->with('Sequenced');
     my $args = $rules->validate( $array, $options );
     if ( $args->{gap} < 0 ) { croak 'Gap option should be a integer greater than or equal 1.'; }
     if ( exists $args->{column} && $args->{column} <= 0 ) { croak 'Column option should be a integer greater than 0.'; }
-    if ( exists $args->{width}  && $args->{width} <= 0 )  { croak 'Width option should be a number greater than 0.'; }
-    if ( !$args->{align} =~ m/^(left|center|right)$/msxi ) { croak 'Align option should be left, center, or right.'; }
+    if ( exists $args->{width}  && $args->{width} <= 0 )  { croak 'Width option should be a integer greater than 0.'; }
+    if ( !( $args->{align} =~ m/^(left|center|right)$/msxi ) ) {
+        croak 'Align option should be left, center, or right.';
+    }
     return $args;
 }
 
@@ -177,9 +180,9 @@ C<< column => $column : Int >>
 
     Set the number of column. Column option should be a integer greater than 0.
 
-C<< width => $width : Num >>
+C<< width => $width : Int >>
 
-    Set width for printing. Width option should be a number greater than 0.
+    Set width for printing. Width option should be a integer greater than 0.
 
 C<< align => $align : Str >>
 

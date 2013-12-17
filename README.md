@@ -54,9 +54,9 @@ Valid options for this method are as follows:
 
     Set the number of column. Column option should be a integer greater than 0.
 
-`width => $width : Num`
+`width => $width : Int`
 
-    Set width for printing. Width option should be a number greater than 0.
+    Set width for printing. Width option should be a integer greater than 0.
 
 `align => $align : Str`
 
