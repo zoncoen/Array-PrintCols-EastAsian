@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/zoncoen/Array-PrintCols-EastAsian.png?branch=master)](https://travis-ci.org/zoncoen/Array-PrintCols-EastAsian) [![Coverage Status](https://coveralls.io/repos/zoncoen/Array-PrintCols-EastAsian/badge.png?branch=master)](https://coveralls.io/r/zoncoen/Array-PrintCols-EastAsian?branch=master)
 # NAME
 
 Array::PrintCols::EastAsian - Print or format space-fill array elements with aligning vertically with multibyte characters.
