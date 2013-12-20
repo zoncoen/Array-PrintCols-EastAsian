@@ -81,6 +81,14 @@ subtest 'print array with specifying gap and width option' => sub {
     is( $stdout, $expected );
 };
 
+subtest 'pretty print array with specifying gap, align and encode option' => sub {
+    lives_ok {
+        capture {
+            pretty_print_cols( \@array, { gap => 1, align => 'left', encode => 'utf-8' } );
+        }
+    };
+};
+
 subtest 'pretty print array with not used invalid option' => sub {
     lives_ok {
         capture {
