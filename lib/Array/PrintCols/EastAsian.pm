@@ -92,9 +92,9 @@ sub print_cols {
         $column = _max( 1, int 1 + ( $args->{width} - $element_width ) / ( $element_width + $gap ) );
         if ( exists $args->{column} ) { $column = _min( $args->{column}, $column ); }
     }
-    if ( !$column ) { $column = $#{$formatted_array}; }
+    if ( !$column ) { $column = $#{$formatted_array} + 1; }
 
-    my $str = q{};
+    my ( $str, $encoded_str ) = q{};
     for ( 0 .. $#{$formatted_array} ) {
         if ( $_ % $column ) {
             $str = $str . q{ } x $gap;
@@ -105,7 +105,8 @@ sub print_cols {
         $str = $str . $formatted_array->[$_];
     }
     $str = $str . "\n";
-    print "encode $encode, $str";
+    $encoded_str = encode $encode, $str;
+    print $encoded_str;
     return;
 }
 
