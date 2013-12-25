@@ -5,7 +5,7 @@ Array::PrintCols::EastAsian - Print or format space-fill array elements with ali
 
 # VERSION
 
-This document describes Array::PrintCols::EastAsian version 0.02.
+This document describes Array::PrintCols::EastAsian version 0.04.
 
 # SYNOPSIS
 
