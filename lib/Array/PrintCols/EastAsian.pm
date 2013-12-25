@@ -12,7 +12,7 @@ use Text::VisualWidth::PP;
 $Text::VisualWidth::PP::EastAsian = 1;
 use parent qw/ Exporter /;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 our @EXPORT    = qw/ format_cols print_cols pretty_print_cols /;
 our @EXPORT_OK = qw/ _max _min _validate _align /;
@@ -112,11 +112,22 @@ sub print_cols {
 
 sub pretty_print_cols {
     my ( $array, $options ) = @_;
-    my $gap           = $options->{gap} // 1;
-    my @terminal_size = GetTerminalSize;
-    my $align         = $options->{align} // 'left';
-    my $encode        = $options->{encode} // 'utf-8';
-    print_cols( $array, { 'gap' => $gap, 'width' => $terminal_size[0], 'align' => $align, 'encode' => $encode } );
+    my $gap    = $options->{gap}    // 1;
+    my $align  = $options->{align}  // 'left';
+    my $encode = $options->{encode} // 'utf-8';
+    my @terminal_size;
+    if ( $^O eq 'MSWin32' ) {
+        @terminal_size = GetTerminalSize <STDOUT>;
+    }
+    else {
+        @terminal_size = GetTerminalSize;
+    }
+    if (@terminal_size) {
+        print_cols( $array, { 'gap' => $gap, 'width' => $terminal_size[0], 'align' => $align, 'encode' => $encode } );
+    }
+    else {
+        print_cols( $array, { 'gap' => $gap, 'align' => $align, 'encode' => $encode } );
+    }
     return;
 }
 
@@ -131,7 +142,11 @@ Array::PrintCols::EastAsian - Print or format space-fill array elements with ali
 
 =head1 VERSION
 
+<<<<<<< HEAD
 This document describes Array::PrintCols::EastAsian version 0.01.
+=======
+This document describes Array::PrintCols::EastAsian version 0.02.
+>>>>>>> develop
 
 =head1 SYNOPSIS
 

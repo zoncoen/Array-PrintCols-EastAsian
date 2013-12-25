@@ -9,3 +9,5 @@ top = 10
 [-Modules::ProhibitAutomaticExportation]
 [InputOutput::RequireCheckedSyscalls]
 exclude_functions = print
+[Variables::ProhibitPunctuationVars]
+allow = $^O
