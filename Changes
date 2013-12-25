@@ -2,6 +2,10 @@ Revision history for Perl extension Array-PrintCols-EastAsian
 
 {{$NEXT}}
 
+0.03 2013-12-25T08:45:27Z
+
+    - Add exception handling for pretty_print_cols().
+
 0.02 2013-12-20T12:30:55Z
 
     - original version
