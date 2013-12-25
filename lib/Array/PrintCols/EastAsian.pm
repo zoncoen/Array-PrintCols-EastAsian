@@ -12,7 +12,7 @@ use Text::VisualWidth::PP;
 $Text::VisualWidth::PP::EastAsian = 1;
 use parent qw/ Exporter /;
 
-our $VERSION = '0.02';
+our $VERSION = '0.04';
 
 our @EXPORT    = qw/ format_cols print_cols pretty_print_cols /;
 our @EXPORT_OK = qw/ _max _min _validate _align /;
