@@ -50,7 +50,7 @@ sub _validate {
     if ( $args->{gap} < 0 ) { croak 'Gap option should be a integer greater than or equal 1.'; }
     if ( exists $args->{column} && $args->{column} <= 0 ) { croak 'Column option should be a integer greater than 0.'; }
     if ( exists $args->{width}  && $args->{width} <= 0 )  { croak 'Width option should be a integer greater than 0.'; }
-    if ( !( $args->{align} =~ m/^(left|center|right)$/msxi ) ) {
+    if ( !( $args->{align} =~ m/^(left|center|right)$/i ) ) {
         croak 'Align option should be left, center, or right.';
     }
     return $args;
@@ -63,9 +63,9 @@ sub _align {
     my ( @formatted_array, $space );
     for ( 0 .. $#{ $args->{array} } ) {
         $space = $max_len - $length[$_];
-        if ( $args->{align} =~ m/^left$/msxi )  { push @formatted_array, $args->{array}->[$_] . q{ } x $space; }
-        if ( $args->{align} =~ m/^right$/msxi ) { push @formatted_array, q{ } x $space . $args->{array}->[$_]; }
-        if ( $args->{align} =~ m/^center$/msxi ) {
+        if ( $args->{align} =~ m/^left$/i )  { push @formatted_array, $args->{array}->[$_] . q{ } x $space; }
+        if ( $args->{align} =~ m/^right$/i ) { push @formatted_array, q{ } x $space . $args->{array}->[$_]; }
+        if ( $args->{align} =~ m/^center$/i ) {
             my $half_space = int $space / 2;
             push @formatted_array, q{ } x $half_space . $args->{array}->[$_] . q{ } x ( $space - $half_space );
         }
@@ -115,15 +115,15 @@ sub pretty_print_cols {
     my $gap    = $options->{gap}    // 1;
     my $align  = $options->{align}  // 'left';
     my $encode = $options->{encode} // 'utf-8';
-    my @terminal_size;
-    if ( $^O eq 'MSWin32' ) {
-        @terminal_size = GetTerminalSize <STDOUT>;
+    my $terminal_width;
+    if ( $^O =~ /Win32/i ) {
+        $terminal_width = ( GetTerminalSize <STDOUT> )[0];
     }
     else {
-        @terminal_size = GetTerminalSize;
+        $terminal_width = (GetTerminalSize)[0];
     }
-    if (@terminal_size) {
-        print_cols( $array, { 'gap' => $gap, 'width' => $terminal_size[0], 'align' => $align, 'encode' => $encode } );
+    if ( $terminal_width =~ /^\d+$/ ) {
+        print_cols( $array, { 'gap' => $gap, 'width' => $terminal_width, 'align' => $align, 'encode' => $encode } );
     }
     else {
         print_cols( $array, { 'gap' => $gap, 'align' => $align, 'encode' => $encode } );

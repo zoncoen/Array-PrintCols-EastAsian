@@ -11,3 +11,7 @@ top = 10
 exclude_functions = print
 [Variables::ProhibitPunctuationVars]
 allow = $^O
+[-RegularExpressions::RequireDotMatchAnything]
+[-RegularExpressions::RequireExtendedFormatting]
+[-RegularExpressions::RequireLineBoundaryMatching]
+[-RegularExpressions::ProhibitFixedStringMatches]
