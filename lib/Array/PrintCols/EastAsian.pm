@@ -122,7 +122,7 @@ sub pretty_print_cols {
     else {
         $terminal_width = (GetTerminalSize)[0];
     }
-    if ( $terminal_width =~ /^\d+$/ ) {
+    if ( $terminal_width =~ /^\d+$/ && $terminal_width != 0 ) {
         print_cols( $array, { 'gap' => $gap, 'width' => $terminal_width, 'align' => $align, 'encode' => $encode } );
     }
     else {
