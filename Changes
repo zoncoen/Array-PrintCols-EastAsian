@@ -2,6 +2,10 @@ Revision history for Perl extension Array-PrintCols-EastAsian
 
 {{$NEXT}}
 
+0.07 2013-12-29T09:06:11Z
+
+    - Update width validation for pretty_print_cols().
+
 0.06 2013-12-28T05:39:16Z
 
     - Add width validation for pretty_print_cols().
